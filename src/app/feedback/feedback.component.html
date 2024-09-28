@@ -1,0 +1,43 @@
+<div class="container">
+    <h2>Student Feedback Form</h2>
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="studentName">Student Name:</label>
+        <input id="studentName" formControlName="studentName" required />
+        <div *ngIf="feedbackForm.get('studentName')?.invalid && feedbackForm.get('studentName')?.touched">
+          Name is required.
+        </div>
+      </div>
+      
+      <div>
+        <label for="batchNumber">Batch Number:</label>
+        <input type="number" id="batchNumber" formControlName="batchNumber" required />
+        <div *ngIf="feedbackForm.get('batchNumber')?.invalid && feedbackForm.get('batchNumber')?.touched">
+          Batch number is required and must be greater than 0.
+        </div>
+      </div>
+      
+      <div>
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" formControlName="feedback" required></textarea>
+        <div *ngIf="feedbackForm.get('feedback')?.invalid && feedbackForm.get('feedback')?.touched">
+          Feedback is required.
+        </div>
+      </div>
+      
+      <button type="submit" [disabled]="feedbackForm.invalid">Submit Feedback</button>
+    </form>
+  
+    <h3>Submitted Feedback</h3>
+    <table>
+      <tr>
+        <th>Student Name</th>
+        <th>Feedback</th>
+      </tr>
+      <tr *ngFor="let feedback of feedbackList">
+        <td>{{ feedback.name }}</td>
+        <td>{{ feedback.feedback }}</td>
+      </tr>
+    </table>
+  </div>
+  
